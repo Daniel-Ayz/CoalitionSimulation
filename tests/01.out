@@ -1,0 +1,93 @@
+[
+    {
+        "agents": [
+            {
+                "id": 0,
+                "partyId": 0
+            },
+            {
+                "id": 1,
+                "partyId": 3
+            }
+        ],
+        "coalitions": [],
+        "edges": [
+            {
+                "from": 0,
+                "to": 2,
+                "weight": 3
+            },
+            {
+                "from": 0,
+                "to": 3,
+                "weight": 1
+            },
+            {
+                "from": 1,
+                "to": 2,
+                "weight": 1
+            },
+            {
+                "from": 1,
+                "to": 3,
+                "weight": 1
+            },
+            {
+                "from": 2,
+                "to": 0,
+                "weight": 3
+            },
+            {
+                "from": 2,
+                "to": 1,
+                "weight": 1
+            },
+            {
+                "from": 2,
+                "to": 3,
+                "weight": 2
+            },
+            {
+                "from": 3,
+                "to": 0,
+                "weight": 1
+            },
+            {
+                "from": 3,
+                "to": 1,
+                "weight": 1
+            },
+            {
+                "from": 3,
+                "to": 2,
+                "weight": 2
+            }
+        ],
+        "parties": [
+            {
+                "id": 0,
+                "mandates": 50,
+                "name": "The Lannisters",
+                "state": "Joined"
+            },
+            {
+                "id": 1,
+                "mandates": 30,
+                "name": "The Baratheons",
+                "state": "Waiting"
+            },
+            {
+                "id": 2,
+                "mandates": 20,
+                "name": "The Targaryens",
+                "state": "Waiting"
+            },
+            {
+                "id": 3,
+                "mandates": 20,
+                "name": "The Starks",
+                "state": "Joined"
+            }
+        ]
+    }
+]
