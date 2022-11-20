@@ -8,6 +8,12 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 void Simulation::step()
 {
     // TODO: implement this method
+    //iterate throught the parties of the graph and activate step(...) in each of theme
+    int numOfVertices = mGraph.getNumVertices();
+    for(int i = 0; i < numOfVertices; i++){
+        Party p = mGraph.getParty(i);
+        p.step(*this);
+    }
 }
 
 bool Simulation::shouldTerminate() const

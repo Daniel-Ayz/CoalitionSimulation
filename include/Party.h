@@ -23,7 +23,11 @@ public:
     int getMandates() const;
     void step(Simulation &s);
     const string &getName() const;
-
+    Party(const Party& other);
+    ~Party();
+    Party& Party::operator=(const Party& other);
+    Party::Party(Party&& other);
+    Party& Party::operator=(Party&& other);
 private:
     int mId;
     string mName;

@@ -29,3 +29,41 @@ void Party::step(Simulation &s)
 {
     // TODO: implement this method
 }
+
+Party::Party(const Party& other)
+{
+    *this = other;
+}
+
+Party::~Party()
+{
+    if(mJoinPolicy){
+        delete mJoinPolicy;
+        mJoinPolicy = nullptr;
+    }
+}
+
+Party& Party::operator=(const Party& other)
+{
+    if(this != &other){
+        if(mJoinPolicy){
+            delete mJoinPolicy;
+            mJoinPolicy = nullptr;
+        }
+        mId = other.mId;
+        mName = other.mName;
+        mMandates = other.mMandates;
+        mJoinPolicy = other.mJoinPolicy;
+        mState = other.mState;
+    }
+}
+
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState){
+    other.mJoinPolicy = nullptr;
+}
+
+Party& Party::operator=(Party&& other)
+{
+    
+}
+

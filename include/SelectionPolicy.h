@@ -1,7 +1,18 @@
 #pragma once
 
-class SelectionPolicy { };
+class Party;
+class Simulation;
+class SelectionPolicy {
+    public:
+        virtual Party& select() = 0;
+};
 
-class MandatesSelectionPolicy: public SelectionPolicy{ };
+class MandatesSelectionPolicy: public SelectionPolicy{
+    public:
+        Party& select();
+};
 
-class EdgeWeightSelectionPolicy: public SelectionPolicy{ };
+class EdgeWeightSelectionPolicy: public SelectionPolicy{
+   public:
+        Party& select();
+};
