@@ -5,6 +5,8 @@
 #include "Graph.h"
 #include "Agent.h"
 
+class Coalition;
+
 using std::string;
 using std::vector;
 
@@ -19,9 +21,14 @@ public:
     const Graph &getGraph() const;
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
+    const vector<int> &getPartyNeighbors(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
+    void addParty(int partyId, int coalitionId);
+    int getCoalitionMandates(int coalitonId) const;
+    Coalition& getCoalition(int coalitionId) const;
 
 private:
     Graph mGraph;
     vector<Agent> mAgents;
+    vector<Coalition> coalitions;
 };

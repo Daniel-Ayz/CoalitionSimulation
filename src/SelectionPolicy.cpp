@@ -1,10 +1,20 @@
 #include "SelectionPolicy.h"
+#include "Party.h"
+#include "Graph.h"
 
 MandatesSelectionPolicy::MandatesSelectionPolicy(){}
 
-Party& MandatesSelectionPolicy::select(const std::vector<Party> parties)
+Party& MandatesSelectionPolicy::select(const Graph& graph)
 {
-// TO IMPLEMENT
+    Party max = parties[0]; 
+    for(Party party : parties)
+    {
+        if(party.getMandates() > max.getMandates())
+        {
+            max = party;
+        }
+    }
+    return max;
 }
 
 SelectionPolicy* MandatesSelectionPolicy::clone() const
@@ -14,9 +24,8 @@ SelectionPolicy* MandatesSelectionPolicy::clone() const
 
 EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy(){}
 
-Party& EdgeWeightSelectionPolicy::select(const std::vector<Party> parties)
+Party& EdgeWeightSelectionPolicy::select(const Graph& grath)
 {
-// TO IMPLEMENT
 
 }
 

@@ -1,9 +1,10 @@
 #include "Agent.h"
 #include "SelectionPolicy.h"
+#include "Simulation.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
 {
-    // You can change the implementation of the constructor, but not the signature!
+    setCoalition(partyId);
 }
 
 int Agent::getId() const
@@ -18,7 +19,14 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    // TODO: implement this method
+    vector<int> neighbors = sim.getPartyNeighbors(mPartyId);
+    vector<int> noOfferNeighbors;
+    for (int id: neighbors){
+        if(!(sim.getParty(id)).hasOffer(mCoalitionId)){
+            noOfferNeighbors.push_back(id);
+        }
+    }
+    Party p = mSelectionPolicy->select(sim.getGraph());
 }
 
 Agent::~Agent()
@@ -62,4 +70,8 @@ Agent& Agent::operator=(Agent&& other)
         other.mSelectionPolicy = nullptr;
     }
     return *this;
+}
+
+void Agent::setCoalition(int _coalitionId){
+    mCoalitionId = _coalitionId;
 }

@@ -1,4 +1,5 @@
 #include "../include/Graph.h"
+#include "Party.h"
 
 Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges) 
 {
@@ -23,4 +24,15 @@ int Graph::getNumVertices() const
 const Party &Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
+}
+
+const vector<int> & Graph::getPartyNeighbors(int partyId) const
+{
+    vector<int> partiesToReturn;
+    for(Party other: mVertices){
+        if(getEdgeWeight(other.getId(),partyId) != 0){
+            partiesToReturn.push_back(other.getId());
+        }
+    }
+    return partiesToReturn;
 }
