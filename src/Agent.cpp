@@ -1,4 +1,5 @@
 #include "Agent.h"
+#include "SelectionPolicy.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
 {
@@ -30,7 +31,7 @@ Agent::~Agent()
 
 Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
 {
-    mSelectionPolicy = new SelectionPolicy(*(other.mSelectionPolicy));
+    mSelectionPolicy = other.mSelectionPolicy->clone();
 }
 
 Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
@@ -46,7 +47,7 @@ Agent& Agent::operator=(const Agent& other)
         if(mSelectionPolicy) delete mSelectionPolicy;
         mAgentId = other.mAgentId;
         mPartyId = other.mPartyId;
-        mSelectionPolicy = new SelectionPolicy(*(other.mSelectionPolicy));
+        mSelectionPolicy = other.mSelectionPolicy->clone();
     }
     return *this;
 }
