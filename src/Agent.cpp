@@ -1,4 +1,4 @@
-#include "../include/Agent.h"
+#include "Agent.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
 {
@@ -18,4 +18,47 @@ int Agent::getPartyId() const
 void Agent::step(Simulation &sim)
 {
     // TODO: implement this method
+}
+
+Agent::~Agent()
+{
+    if(mSelectionPolicy){
+        delete mSelectionPolicy;
+        mSelectionPolicy = nullptr;
+    }
+}
+
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
+{
+    mSelectionPolicy = new SelectionPolicy(*(other.mSelectionPolicy));
+}
+
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
+{
+    mSelectionPolicy = other.mSelectionPolicy;
+    other.mSelectionPolicy = nullptr;
+}
+
+
+Agent& Agent::operator=(const Agent& other)
+{
+    if(this!= &other){
+        if(mSelectionPolicy) delete mSelectionPolicy;
+        mAgentId = other.mAgentId;
+        mPartyId = other.mPartyId;
+        mSelectionPolicy = new SelectionPolicy(*(other.mSelectionPolicy));
+    }
+    return *this;
+}
+
+Agent& Agent::operator=(Agent&& other)
+{
+    if(this!= &other){
+        if(mSelectionPolicy) delete mSelectionPolicy;
+        mAgentId = other.mAgentId;
+        mPartyId = other.mPartyId;
+        mSelectionPolicy = other.mSelectionPolicy;
+        other.mSelectionPolicy = nullptr;
+    }
+    return *this;
 }
