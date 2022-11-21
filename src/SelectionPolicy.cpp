@@ -26,7 +26,15 @@ EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy(){}
 
 Party& EdgeWeightSelectionPolicy::select(const Graph& graph, vector<Party>& partiesToOffer, int partyId)
 {
-
+    int maxIndex = -1;
+    int maxWeight = 0;
+    for(int i=0;i<partiesToOffer.size();i++){
+        if(graph.getEdgeWeight(partiesToOffer[i].getId(),partyId)>maxWeight){
+            maxIndex = i;
+            maxWeight = graph.getEdgeWeight(partiesToOffer[i].getId(),partyId);
+        }
+    }
+    return partiesToOffer[maxIndex];
 }
 
 SelectionPolicy* EdgeWeightSelectionPolicy::clone() const
