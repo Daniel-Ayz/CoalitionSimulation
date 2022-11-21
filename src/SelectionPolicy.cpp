@@ -1,6 +1,6 @@
-#include "SelectionPolicy.h"
-#include "Party.h"
-#include "Graph.h"
+#include "../include/SelectionPolicy.h"
+#include "../include/Party.h"
+#include "../include/Graph.h"
 
 MandatesSelectionPolicy::MandatesSelectionPolicy(){}
 

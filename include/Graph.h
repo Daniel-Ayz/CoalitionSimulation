@@ -14,6 +14,7 @@ public:
     const Party &getParty(int partyId) const;
     const vector<int> &getPartyNeighbors(int partyId) const;
     vector<Party> &getAllParties();
+    const vector<Party> &Graph::getAllParties() const;
 
 private:
     vector<Party> mVertices;

@@ -23,6 +23,20 @@ void Simulation::step()
 bool Simulation::shouldTerminate() const
 {
     // TODO implement this method
+    for(Coalition c: coalitions)
+    {
+        if(c.getMandates() >60)
+        {
+            return true;
+        }
+    }
+    vector<Party> parties = getAllParties();
+    for(Party p : parties)
+    {
+        if(p.getState()!= Joined){
+            return false;
+        }
+    }
     return true;
 }
 
@@ -73,5 +87,10 @@ Coalition& Simulation::getCoalition(int coalitionId) const{
 }
 
 vector<Party>& Simulation::getAllParties(){
+    return mGraph.getAllParties();
+}
+
+const vector<Party>& Simulation::getAllParties() const
+{
     return mGraph.getAllParties();
 }
