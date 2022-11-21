@@ -13,6 +13,7 @@ public:
     int getPartyId() const;
     int getId() const;
     void step(Simulation &);
+    void setCoalition(int coalitionId);
     //rule of 5
     Agent(const Agent& other);
     Agent(Agent&& other);
@@ -23,5 +24,6 @@ public:
 private:
     int mAgentId;
     int mPartyId;
+    int mCoalitionId;
     SelectionPolicy *mSelectionPolicy;
 };

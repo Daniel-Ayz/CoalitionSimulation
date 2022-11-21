@@ -1,4 +1,6 @@
 #include "../include/Simulation.h"
+#include <vector>
+#include "Coalition.h"
 
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
 {
@@ -43,4 +45,22 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     // TODO: you MUST implement this method for getting proper output, read the documentation above.
     return vector<vector<int>>();
+}
+
+const vector<int>& Simulation::getPartyNeighbors(int partyId) const
+{
+    return mGraph.getPartyNeighbors(partyId);
+}
+
+void Simulation::addParty(int partyId, int coalitionId){
+    Coalition c = getCoalition(coalitionId);
+    c.addParty(partyId, getParty(partyId).getMandates());
+}
+
+Coalition& Simulation::getCoalition(int coalitionId) const{
+    for(Coalition c : coalitions){
+        if (c.getCoalitionId() == coalitionId){
+            return c;
+        }
+    }
 }

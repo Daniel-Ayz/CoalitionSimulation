@@ -1,8 +1,16 @@
-#include "../include/Party.h"
+#include "Party.h"
 
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting) 
+#include <iostream>
+
+#include <algorithm>
+#include <vector>
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers() 
 {
-    // You can change the implementation of the constructor, but not the signature!
+
+}
+
+int Party::getId() const{
+    return mId;
 }
 
 State Party::getState() const
@@ -77,3 +85,11 @@ Party& Party::operator=(Party&& other)
     mState = other.mState;
 }
 
+void Party::addOffer(int coalitionId){
+    if(!hasOffer(coalitionId)){
+        offers.push_back(coalitionId);
+    }
+}
+// bool Party::hasOffer(int coalitionId){
+//     return std::find((offers.begin(), offers.end(), coalitionId) != offers.end());
+// }
