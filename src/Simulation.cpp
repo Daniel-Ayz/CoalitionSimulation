@@ -16,6 +16,10 @@ void Simulation::step()
         Party p = mGraph.getParty(i);
         p.step(*this);
     }
+    for(int i=0; i< mAgents.size();i++)
+    {
+        mAgents[i].step(*this);
+    }
 }
 
 bool Simulation::shouldTerminate() const
@@ -44,7 +48,12 @@ const Party &Simulation::getParty(int partyId) const
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     // TODO: you MUST implement this method for getting proper output, read the documentation above.
-    return vector<vector<int>>();
+    vector<vector<int>> ans;
+    for(int i = 0; i < coalitions.size();i++)
+    {
+        ans.push_back(coalitions[i].getParties());
+    }
+    return ans;
 }
 
 const vector<int>& Simulation::getPartyNeighbors(int partyId) const

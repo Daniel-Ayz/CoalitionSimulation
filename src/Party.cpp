@@ -54,6 +54,7 @@ void Party::step(Simulation &s)
             }
             int coalitionId = mJoinPolicy->select(coalitionsOffered);
             s.getCoalition(coalitionId).addParty(mId,mMandates);
+            mState = Joined;
         }
     }
     

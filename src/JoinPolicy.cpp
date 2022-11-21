@@ -8,7 +8,7 @@ int MandatesJoinPolicy::select(std::vector<Coalition>& coalitions)
     int max=0;
     for(Coalition c : coalitions)
     {
-        if(c.getMandates()>max){
+        if(c.getMandates()>=max){
             max = c.getMandates();
             coalitionId = c.getCoalitionId();
         }
