@@ -23,11 +23,11 @@ public:
     const Party &getParty(int partyId) const;
     vector<Party> &getAllParties();
     const vector<Party>& Simulation::getAllParties() const;
-    const vector<int> &getPartyNeighbors(int partyId) const;
+    vector<Party> &getPartyNeighbors(int partyId);
     const vector<vector<int>> getPartiesByCoalitions() const;
     void addParty(int partyId, int coalitionId);
     int getCoalitionMandates(int coalitonId) const;
-    Coalition& getCoalition(int coalitionId) const;
+    Coalition& getCoalition(int coalitionId);
     int getTicks();
     int addTicks();
 

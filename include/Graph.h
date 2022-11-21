@@ -12,7 +12,7 @@ public:
     int getEdgeWeight(int v1, int v2) const;
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
-    const vector<int> &getPartyNeighbors(int partyId) const;
+    vector<Party> &getPartyNeighbors(int partyId);
     vector<Party> &getAllParties();
     const vector<Party> &Graph::getAllParties() const;
 

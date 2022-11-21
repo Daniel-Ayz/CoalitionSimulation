@@ -26,12 +26,12 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
-const vector<int> & Graph::getPartyNeighbors(int partyId) const
+vector<Party> & Graph::getPartyNeighbors(int partyId)
 {
-    vector<int> partiesToReturn;
-    for(Party other: mVertices){
-        if(getEdgeWeight(other.getId(),partyId) != 0){
-            partiesToReturn.push_back(other.getId());
+    vector<Party> partiesToReturn;
+    for(Party p: mVertices){
+        if(getEdgeWeight(p.getId(),partyId) != 0){
+            partiesToReturn.push_back(p);
         }
     }
     return partiesToReturn;

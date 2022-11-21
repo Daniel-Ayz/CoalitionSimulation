@@ -4,17 +4,17 @@
 
 MandatesSelectionPolicy::MandatesSelectionPolicy(){}
 
-Party& MandatesSelectionPolicy::select(const Graph& graph)
+Party& MandatesSelectionPolicy::select(const Graph& graph, vector<Party>& partiesToOffer, int partyId)
 {
-    Party max = parties[0]; 
-    for(Party party : parties)
-    {
-        if(party.getMandates() > max.getMandates())
-        {
-            max = party;
+    int maxIndex = -1;
+    int maxMandates = 0;
+    for(int i=0;i<partiesToOffer.size();i++){
+        if(partiesToOffer[i].getMandates()>maxMandates){
+            maxIndex = i;
+            maxMandates = partiesToOffer[i].getMandates();
         }
     }
-    return max;
+    return partiesToOffer[maxIndex];
 }
 
 SelectionPolicy* MandatesSelectionPolicy::clone() const
@@ -24,9 +24,9 @@ SelectionPolicy* MandatesSelectionPolicy::clone() const
 
 EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy(){}
 
-Party& EdgeWeightSelectionPolicy::select(const Graph& grath)
+Party& EdgeWeightSelectionPolicy::select(const Graph& graph, vector<Party>& partiesToOffer, int partyId)
 {
-    
+
 }
 
 SelectionPolicy* EdgeWeightSelectionPolicy::clone() const
