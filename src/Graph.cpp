@@ -36,3 +36,7 @@ const vector<int> & Graph::getPartyNeighbors(int partyId) const
     }
     return partiesToReturn;
 }
+
+vector<Party> &Graph::getAllParties(){
+    return mVertices;
+}

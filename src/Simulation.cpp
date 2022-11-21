@@ -11,14 +11,12 @@ void Simulation::step()
 {
     // TODO: implement this method
     //iterate throught the parties of the graph and activate step(...) in each of theme
-    int numOfVertices = mGraph.getNumVertices();
-    for(int i = 0; i < numOfVertices; i++){
-        Party p = mGraph.getParty(i);
+    vector<Party> parties = getAllParties();
+    for(Party p: parties){
         p.step(*this);
     }
-    for(int i=0; i< mAgents.size();i++)
-    {
-        mAgents[i].step(*this);
+    for(Agent a: mAgents){
+        a.step(*this);
     }
 }
 
@@ -72,4 +70,8 @@ Coalition& Simulation::getCoalition(int coalitionId) const{
             return c;
         }
     }
+}
+
+vector<Party>& Simulation::getAllParties(){
+    return mGraph.getAllParties();
 }

@@ -1,4 +1,4 @@
-#include "Coalition.h"
+#include "../include/Coalition.h"
 
 Coalition::Coalition(int partyId, int _mandates): coalitionId(partyId), mandatesSum(_mandates), partyIds() {
     partyIds.push_back(partyId);

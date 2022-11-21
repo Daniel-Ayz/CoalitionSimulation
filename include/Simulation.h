@@ -21,6 +21,7 @@ public:
     const Graph &getGraph() const;
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
+    vector<Party> &getAllParties();
     const vector<int> &getPartyNeighbors(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
     void addParty(int partyId, int coalitionId);
