@@ -30,9 +30,9 @@ void Party::step(Simulation &s)
     // TODO: implement this method
 }
 
-Party::Party(const Party& other)
+Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
 {
-    *this = other;
+   mJoinPolicy = other.mJoinPolicy->clone();
 }
 
 Party::~Party()
@@ -53,7 +53,7 @@ Party& Party::operator=(const Party& other)
         mId = other.mId;
         mName = other.mName;
         mMandates = other.mMandates;
-        mJoinPolicy = other.mJoinPolicy;
+        mJoinPolicy = other.mJoinPolicy->clone();
         mState = other.mState;
     }
 }
@@ -64,6 +64,16 @@ Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(othe
 
 Party& Party::operator=(Party&& other)
 {
-    
+    if(mJoinPolicy){
+        delete mJoinPolicy;
+        mJoinPolicy = nullptr;
+    }
+    mJoinPolicy = other.mJoinPolicy;
+    other.mJoinPolicy = nullptr;
+    mId = other.mId;
+    mName = other.mName;
+    mMandates = other.mMandates;
+    mJoinPolicy = other.mJoinPolicy;
+    mState = other.mState;
 }
 
