@@ -52,8 +52,7 @@ void Party::step(Simulation &s)
             {
                 coalitionsOffered.push_back(s.getCoalition(i));
             }
-            int coalitionId = mJoinPolicy->select(coalitionsOffered);
-            s.getCoalition(coalitionId).addParty(mId,mMandates);
+             mJoinPolicy->select(coalitionsOffered).addParty(mId,mMandates);
             mState = Joined;
         }
     }
@@ -112,6 +111,13 @@ void Party::addOffer(int coalitionId){
         offers.push_back(coalitionId);
     }
 }
-// bool Party::hasOffer(int coalitionId){
-//     return std::find((offers.begin(), offers.end(), coalitionId) != offers.end());
-// }
+bool Party::hasOffer(int coalitionId) const
+{
+    for(int c: offers){
+        if(c == coalitionId)
+        {
+            return true;
+        }
+    }
+    return false;
+}

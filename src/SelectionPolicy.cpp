@@ -26,7 +26,7 @@ EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy(){}
 
 Party& EdgeWeightSelectionPolicy::select(const Graph& grath)
 {
-
+    
 }
 
 SelectionPolicy* EdgeWeightSelectionPolicy::clone() const
