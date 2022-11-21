@@ -68,7 +68,7 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
     return ans;
 }
 
-const vector<int>& Simulation::getPartyNeighbors(int partyId) const
+vector<Party>& Simulation::getPartyNeighbors(int partyId)
 {
     return mGraph.getPartyNeighbors(partyId);
 }
@@ -78,7 +78,7 @@ void Simulation::addParty(int partyId, int coalitionId){
     c.addParty(partyId, getParty(partyId).getMandates());
 }
 
-Coalition& Simulation::getCoalition(int coalitionId) const{
+Coalition& Simulation::getCoalition(int coalitionId){
     for(Coalition c : coalitions){
         if (c.getCoalitionId() == coalitionId){
             return c;

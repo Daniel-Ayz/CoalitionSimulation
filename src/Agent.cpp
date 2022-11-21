@@ -19,14 +19,17 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    vector<int> neighbors = sim.getPartyNeighbors(mPartyId);
-    vector<int> noOfferNeighbors;
-    for (int id: neighbors){
-        if(!(sim.getParty(id)).hasOffer(mCoalitionId)){
-            noOfferNeighbors.push_back(id);
+    vector<Party> neighbors = sim.getPartyNeighbors(mPartyId);
+    vector<Party> noOfferNeighbors;
+    for (Party p: neighbors){
+        if(!(p.hasOffer(mCoalitionId))){
+            noOfferNeighbors.push_back(p);
         }
     }
-    Party p = mSelectionPolicy->select(sim.getGraph());
+    if(noOfferNeighbors.size()>0){
+        Party p = mSelectionPolicy->select(sim.getGraph(), noOfferNeighbors, mPartyId);
+        p.addOffer(mCoalitionId);
+    }
 }
 
 Agent::~Agent()
