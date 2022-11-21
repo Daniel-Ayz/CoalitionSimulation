@@ -40,3 +40,7 @@ const vector<int> & Graph::getPartyNeighbors(int partyId) const
 vector<Party> &Graph::getAllParties(){
     return mVertices;
 }
+
+const vector<Party> &Graph::getAllParties() const{
+    return mVertices;
+}
