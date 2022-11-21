@@ -26,9 +26,12 @@ public:
     void addParty(int partyId, int coalitionId);
     int getCoalitionMandates(int coalitonId) const;
     Coalition& getCoalition(int coalitionId) const;
+    int getTicks();
+    int addTicks();
 
 private:
     Graph mGraph;
     vector<Agent> mAgents;
     vector<Coalition> coalitions;
+    int ticks;
 };

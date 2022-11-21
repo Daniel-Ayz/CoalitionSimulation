@@ -1,9 +1,11 @@
 #include "Party.h"
-
+#include "JoinPolicy.h"
+#include "Simulation.h"
 #include <iostream>
 
 #include <algorithm>
 #include <vector>
+
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers() 
 {
 
@@ -36,6 +38,25 @@ const string & Party::getName() const
 void Party::step(Simulation &s)
 {
     // TODO: implement this method
+    if(mState = CollectingOffers)
+    {
+        if(s.getTicks() < 3)
+        {
+            s.addTicks();
+        }
+        else
+        {
+            //select offer using the join policy
+            vector<Coalition> coalitionsOffered;
+            for(int i : offers)
+            {
+                coalitionsOffered.push_back(s.getCoalition(i));
+            }
+            int coalitionId = mJoinPolicy->select(coalitionsOffered);
+            s.getCoalition(coalitionId).addParty(mId,mMandates);
+        }
+    }
+    
 }
 
 Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
