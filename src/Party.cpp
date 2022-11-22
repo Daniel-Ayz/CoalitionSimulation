@@ -95,7 +95,7 @@ Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(othe
 
 Party& Party::operator=(Party&& other)
 {
-    if(this != other){
+    if(this != &other){
         if(mJoinPolicy){
             delete mJoinPolicy;
             mJoinPolicy = nullptr;
