@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers() 
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers(), CoalitionId(-1), ticks(0)
 {
 
 }
@@ -37,21 +37,23 @@ const string & Party::getName() const
 
 void Party::step(Simulation &s)
 {
-    if(mState = CollectingOffers)
+    if(mState == CollectingOffers)
     {
-        if(s.getTicks() < 3)
+        if(getTicks() < 3)
         {
-            s.addTicks();
+            addTicks();
         }
         else
         {
             //select offer using the join policy
-            vector<Coalition> coalitionsOffered;
+            std::vector<Coalition> coalitionsOffered;
             for(int i : offers)
             {
                 coalitionsOffered.push_back(s.getCoalition(i));
             }
-            mJoinPolicy->select(coalitionsOffered).addParty(mId,mMandates);
+            Coalition& c = mJoinPolicy->select(coalitionsOffered);
+            c.addParty(mId,mMandates);
+            setCoalition(c.getCoalitionId());
             s.addAgent(mId, CoalitionId);
             mState = Joined;
         }
@@ -59,9 +61,8 @@ void Party::step(Simulation &s)
     
 }
 
-Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState), offers(), CoalitionId(other.CoalitionId)
+Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy->clone()), mState(other.mState), offers(), CoalitionId(other.CoalitionId), ticks(other.ticks)
 {
-   mJoinPolicy = other.mJoinPolicy->clone();
 }
 
 Party::~Party()
@@ -87,9 +88,10 @@ Party& Party::operator=(const Party& other)
         offers = other.offers;
         CoalitionId = other.CoalitionId;
     }
+    return *this;
 }
 
-Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), offers(), CoalitionId(other.CoalitionId){
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), offers(), CoalitionId(other.CoalitionId), ticks(other.ticks){
     other.mJoinPolicy = nullptr;
 }
 
@@ -111,10 +113,14 @@ Party& Party::operator=(Party&& other)
         offers = other.offers;
         CoalitionId = other.CoalitionId;
     }
+    return *this;
 }
 
 void Party::addOffer(int coalitionId){
     if(!hasOffer(coalitionId)){
+        if(mState == Waiting){
+            mState = CollectingOffers;
+        }
         offers.push_back(coalitionId);
     }
 }
@@ -127,4 +133,17 @@ bool Party::hasOffer(int coalitionId) const
         }
     }
     return false;
+}
+
+
+int Party::getTicks(){
+    return ticks;
+}
+
+void Party::addTicks(){
+    ticks = ticks + 1;
+}
+
+void Party::setCoalition(int coalitionId){
+    CoalitionId = coalitionId;
 }

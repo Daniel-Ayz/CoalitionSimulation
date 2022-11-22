@@ -1,6 +1,9 @@
 #pragma once
 
+
+#include <iostream>
 #include <vector>
+using namespace std;
 
 #include "Graph.h"
 #include "Agent.h"
@@ -8,34 +11,30 @@
 class Coalition;
 
 using std::string;
-using std::vector;
 
 class Simulation
 {
 public:
-    Simulation(Graph g, vector<Agent> agents);
+    Simulation(Graph g, std::vector<Agent> agents);
 
     void step();
     bool shouldTerminate() const;
 
     const Graph &getGraph() const;
-    const vector<Agent> &getAgents() const;
+    const std::vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
-    vector<Party> &getAllParties();
-    const vector<Party>& Simulation::getAllParties() const;
-    vector<Party> &getPartyNeighbors(int partyId);
-    const vector<vector<int>> getPartiesByCoalitions() const;
+    std::vector<Party> &getAllParties();
+    const std::vector<Party>& getAllParties() const;
+    std::vector<Party> getPartyNeighbors(int partyId);
+    const std::vector<vector<int>> getPartiesByCoalitions() const;
     void addParty(int partyId, int coalitionId);
     int getCoalitionMandates(int coalitonId) const;
     Coalition& getCoalition(int coalitionId);
-    int getTicks();
-    int addTicks();
     void addAgent(int partyId, int coalitionId);
     const Agent& getAgentFromCoalition(int coalitionId);
 
 private:
     Graph mGraph;
-    vector<Agent> mAgents;
-    vector<Coalition> coalitions;
-    int ticks;
+    std::vector<Agent> mAgents;
+    std::vector<Coalition> coalitions;
 };

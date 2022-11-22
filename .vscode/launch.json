@@ -1,14 +1,13 @@
 {
     "configurations": [
-        
         {
-            "name": "(gdb) Launch",
+            "name": "C/C++: g++ build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "enter program name, for example ${workspaceFolder}/a.out",
-            "args": [],
+            "program": "${workspaceFolder}/bin/cRace",
+            "args": ["tests/01.json"],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -23,7 +22,10 @@
                     "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
-            ]
+            ],
+            "miDebuggerPath": "/usr/bin/gdb",
+            "preLaunchTask": "make",
+
         }
     ],
     "version": "2.0.0"

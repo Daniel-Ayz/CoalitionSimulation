@@ -2,9 +2,8 @@
 #include "SelectionPolicy.h"
 #include "Simulation.h"
 
-Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
+Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mCoalitionId(partyId), mSelectionPolicy(selectionPolicy)
 {
-    setCoalition(partyId);
 }
 
 int Agent::getId() const
@@ -19,9 +18,9 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    vector<Party> neighbors = sim.getPartyNeighbors(mPartyId);
-    vector<Party> noOfferNeighbors;
-    for (Party p: neighbors){
+    std::vector<Party> neighbors = sim.getPartyNeighbors(mPartyId);
+    std::vector<Party> noOfferNeighbors;
+    for (Party& p: neighbors){
         if(!(p.hasOffer(mCoalitionId))){
             noOfferNeighbors.push_back(p);
         }
@@ -40,14 +39,12 @@ Agent::~Agent()
     }
 }
 
-Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mCoalitionId(other.mCoalitionId), mSelectionPolicy(other.mSelectionPolicy->clone())
 {
-    mSelectionPolicy = other.mSelectionPolicy->clone();
 }
 
-Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId)
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mCoalitionId(other.mCoalitionId), mSelectionPolicy(other.mSelectionPolicy)
 {
-    mSelectionPolicy = other.mSelectionPolicy;
     other.mSelectionPolicy = nullptr;
 }
 

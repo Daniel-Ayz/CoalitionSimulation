@@ -1,5 +1,8 @@
 #pragma once
+
+#include <iostream>
 #include <vector>
+using namespace std;
 #include "Party.h"
 
 using std::vector;
@@ -7,16 +10,17 @@ using std::vector;
 class Graph
 {
 public:
-    Graph(vector<Party> vertices, vector<vector<int>> edges);
+    Graph(vector<Party> vertices, std::vector<vector<int>> edges);
     int getMandates(int partyId) const;
     int getEdgeWeight(int v1, int v2) const;
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
-    vector<Party> &getPartyNeighbors(int partyId);
-    vector<Party> &getAllParties();
-    const vector<Party> &Graph::getAllParties() const;
+    std::vector<Party>& getPartyNeighbors(int partyId);
+    std::vector<int> getNeighborsWithoutOffer(int partyId);
+    std::vector<Party> &getAllParties();
+    const std::vector<Party> &getAllParties() const;
 
 private:
-    vector<Party> mVertices;
-    vector<vector<int>> mEdges;
+    std::vector<Party> mVertices;
+    std::vector<vector<int>> mEdges;
 };

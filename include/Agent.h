@@ -1,6 +1,8 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
+using namespace std;
 #include "Graph.h"
 
 class SelectionPolicy;

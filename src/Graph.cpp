@@ -1,7 +1,7 @@
 #include "../include/Graph.h"
 #include "Party.h"
 
-Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges) 
+Graph::Graph(vector<Party> vertices, std::vector<vector<int>> edges) : mVertices(vertices), mEdges(edges) 
 {
     // You can change the implementation of the constructor, but not the signature!
 }
@@ -26,10 +26,10 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
-vector<Party> & Graph::getPartyNeighbors(int partyId)
+vector<Party> Graph::getPartyNeighbors(int partyId)
 {
-    vector<Party> partiesToReturn;
-    for(Party p: mVertices){
+    std::vector<Party> partiesToReturn;
+    for(Party& p: mVertices){
         if(getEdgeWeight(p.getId(),partyId) != 0){
             partiesToReturn.push_back(p);
         }
@@ -41,6 +41,6 @@ vector<Party> &Graph::getAllParties(){
     return mVertices;
 }
 
-const vector<Party> &Graph::getAllParties() const{
+const std::vector<Party> &Graph::getAllParties() const{
     return mVertices;
 }

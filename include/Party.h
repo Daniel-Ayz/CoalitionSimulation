@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
+
+#include <iostream>
 #include <vector>
+using namespace std;
 
 using std::string;
 
@@ -27,12 +30,15 @@ public:
     const string &getName() const;
     void addOffer(int coalitionId);
     bool hasOffer(int coalitionId) const;
+    int getTicks();
+    void addTicks();
+    void setCoalition(int coalitionId);
     //rule of 5
     Party(const Party& other);
     ~Party();
-    Party& Party::operator=(const Party& other);
-    Party::Party(Party&& other);
-    Party& Party::operator=(Party&& other);
+    Party& operator=(const Party& other);
+    Party(Party&& other);
+    Party& operator=(Party&& other);
 private:
     int mId;
     string mName;
@@ -41,4 +47,5 @@ private:
     State mState;
     std::vector<int> offers;
     int CoalitionId;
+    int ticks;
 };
