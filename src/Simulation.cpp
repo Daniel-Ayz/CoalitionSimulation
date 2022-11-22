@@ -17,7 +17,7 @@ void Simulation::step()
 {
     // TODO: implement this method
     //iterate throught the parties of the graph and activate step(...) in each of theme
-    std::vector<Party> parties = getAllParties();
+    std::vector<Party>& parties = getAllParties();
     for(Party& p: parties){
         p.step(*this);
     }
@@ -87,13 +87,12 @@ void Simulation::addParty(int partyId, int coalitionId){
 }
 
 Coalition& Simulation::getCoalition(int coalitionId){
-    Coalition& coalition= coalitions[0];
     for(Coalition& c : coalitions){
         if (c.getCoalitionId() == coalitionId){
-            coalition = c;
+            return c;
         }
     }
-    return coalition;
+    return coalitions[0];
 }
 
 vector<Party>& Simulation::getAllParties(){
@@ -113,13 +112,12 @@ void Simulation::addAgent(int partyId, int coalitionId){
 }
 
 const Agent& Simulation::getAgentFromCoalition(int coalitionId){
-    Agent& agent = mAgents[0];
     for(Agent& a: mAgents){
         if(a.getCoalitionId()==coalitionId){
-            agent = a;
+            return a;
         }
     }
-    return agent;
+    return mAgents[0];
 }
 
 std::vector<int> Simulation::getNeighborsWithoutOffer(int partyId,int coalitionId){

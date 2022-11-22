@@ -30,7 +30,7 @@ int EdgeWeightSelectionPolicy::select(const Graph& graph, std::vector<int> parti
     int maxWeight = 0;
     for(unsigned int i=0;i<partiesToOffer.size();i++){
         if(graph.getEdgeWeight(partiesToOffer[i],partyId)>maxWeight){
-            maxPartyId = i;
+            maxPartyId = partiesToOffer[i];
             maxWeight = graph.getEdgeWeight(partiesToOffer[i],partyId);
         }
     }

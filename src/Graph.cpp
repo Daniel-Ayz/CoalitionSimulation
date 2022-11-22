@@ -45,7 +45,7 @@ vector<Party> Graph::getPartyNeighbors(int partyId)
 vector<int> Graph::getNeighborsWithoutOffer(int partyId,int coalitionId){
     vector<int> v;
     for(Party& p:mVertices){
-        if(getEdgeWeight(p.getId(),partyId)!=0 && !p.hasOffer(coalitionId)){
+        if(getEdgeWeight(p.getId(),partyId)!=0 && !p.hasOffer(coalitionId) && p.getState()!=Joined){
             v.push_back(p.getId());
         }
     }

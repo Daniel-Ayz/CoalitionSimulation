@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers(), CoalitionId(-1), ticks(0)
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), offers(), CoalitionId(-1), ticks(1)
 {
 
 }
@@ -46,14 +46,15 @@ void Party::step(Simulation &s)
         else
         {
             //select offer using the join policy
-            std::vector<Coalition> coalitionsOffered;
+            std::vector<int> coalitionsOffered;
             for(int i : offers)
             {
-                coalitionsOffered.push_back(s.getCoalition(i));
+                coalitionsOffered.push_back(i);
             }
-            Coalition& c = mJoinPolicy->select(coalitionsOffered);
-            c.addParty(mId,mMandates);
-            setCoalition(c.getCoalitionId());
+            int c = mJoinPolicy->select(coalitionsOffered,s);
+            Coalition& coal = s.getCoalition(c);
+            coal.addParty(mId,mMandates);
+            setCoalition(c);
             s.addAgent(mId, CoalitionId);
             mState = Joined;
         }
