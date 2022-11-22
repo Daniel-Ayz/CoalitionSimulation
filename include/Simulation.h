@@ -30,6 +30,8 @@ public:
     Coalition& getCoalition(int coalitionId);
     int getTicks();
     int addTicks();
+    void addAgent(int partyId, int coalitionId);
+    const Agent& getAgentFromCoalition(int coalitionId);
 
 private:
     Graph mGraph;

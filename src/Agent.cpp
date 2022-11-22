@@ -78,3 +78,15 @@ Agent& Agent::operator=(Agent&& other)
 void Agent::setCoalition(int _coalitionId){
     mCoalitionId = _coalitionId;
 }
+
+int Agent::getCoalitionId(){
+    return mCoalitionId;
+}
+
+void Agent::setAgentId(int agentId){
+    mAgentId = agentId;
+}
+
+void Agent::setPartyId(int partyId){
+    mPartyId = partyId;
+}

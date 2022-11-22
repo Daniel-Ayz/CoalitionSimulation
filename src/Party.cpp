@@ -37,7 +37,6 @@ const string & Party::getName() const
 
 void Party::step(Simulation &s)
 {
-    // TODO: implement this method
     if(mState = CollectingOffers)
     {
         if(s.getTicks() < 3)
@@ -52,14 +51,15 @@ void Party::step(Simulation &s)
             {
                 coalitionsOffered.push_back(s.getCoalition(i));
             }
-             mJoinPolicy->select(coalitionsOffered).addParty(mId,mMandates);
+            mJoinPolicy->select(coalitionsOffered).addParty(mId,mMandates);
+            s.addAgent(mId, CoalitionId);
             mState = Joined;
         }
     }
     
 }
 
-Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState)
+Party::Party(const Party& other): mId(other.mId), mName(other.mName), mMandates(other.mMandates), mState(other.mState), offers(), CoalitionId(other.CoalitionId)
 {
    mJoinPolicy = other.mJoinPolicy->clone();
 }
@@ -84,26 +84,33 @@ Party& Party::operator=(const Party& other)
         mMandates = other.mMandates;
         mJoinPolicy = other.mJoinPolicy->clone();
         mState = other.mState;
+        offers = other.offers;
+        CoalitionId = other.CoalitionId;
     }
 }
 
-Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState){
+Party::Party(Party&& other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), offers(), CoalitionId(other.CoalitionId){
     other.mJoinPolicy = nullptr;
 }
 
 Party& Party::operator=(Party&& other)
 {
-    if(mJoinPolicy){
-        delete mJoinPolicy;
-        mJoinPolicy = nullptr;
+    if(this != other){
+        if(mJoinPolicy){
+            delete mJoinPolicy;
+            mJoinPolicy = nullptr;
+        }
+        mJoinPolicy = other.mJoinPolicy;
+        other.mJoinPolicy = nullptr;
+        
+        mId = other.mId;
+        mName = other.mName;
+        mMandates = other.mMandates;
+        mJoinPolicy = other.mJoinPolicy;
+        mState = other.mState;
+        offers = other.offers;
+        CoalitionId = other.CoalitionId;
     }
-    mJoinPolicy = other.mJoinPolicy;
-    other.mJoinPolicy = nullptr;
-    mId = other.mId;
-    mName = other.mName;
-    mMandates = other.mMandates;
-    mJoinPolicy = other.mJoinPolicy;
-    mState = other.mState;
 }
 
 void Party::addOffer(int coalitionId){

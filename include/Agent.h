@@ -14,6 +14,9 @@ public:
     int getId() const;
     void step(Simulation &);
     void setCoalition(int coalitionId);
+    void setAgentId(int agentId);
+    void setPartyId(int partyId);
+    int getCoalitionId();
     //rule of 5
     Agent(const Agent& other);
     Agent(Agent&& other);

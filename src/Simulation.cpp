@@ -12,10 +12,10 @@ void Simulation::step()
     // TODO: implement this method
     //iterate throught the parties of the graph and activate step(...) in each of theme
     vector<Party> parties = getAllParties();
-    for(Party p: parties){
+    for(Party& p: parties){
         p.step(*this);
     }
-    for(Agent a: mAgents){
+    for(Agent& a: mAgents){
         a.step(*this);
     }
 }
@@ -23,7 +23,7 @@ void Simulation::step()
 bool Simulation::shouldTerminate() const
 {
     // TODO implement this method
-    for(Coalition c: coalitions)
+    for(const Coalition& c: coalitions)
     {
         if(c.getMandates() >60)
         {
@@ -31,7 +31,7 @@ bool Simulation::shouldTerminate() const
         }
     }
     vector<Party> parties = getAllParties();
-    for(Party p : parties)
+    for(Party& p : parties)
     {
         if(p.getState()!= Joined){
             return false;
@@ -79,7 +79,7 @@ void Simulation::addParty(int partyId, int coalitionId){
 }
 
 Coalition& Simulation::getCoalition(int coalitionId){
-    for(Coalition c : coalitions){
+    for(Coalition& c : coalitions){
         if (c.getCoalitionId() == coalitionId){
             return c;
         }
@@ -93,4 +93,19 @@ vector<Party>& Simulation::getAllParties(){
 const vector<Party>& Simulation::getAllParties() const
 {
     return mGraph.getAllParties();
+}
+
+void Simulation::addAgent(int partyId, int coalitionId){
+    Agent agent = getAgentFromCoalition(coalitionId);
+    agent.setAgentId(mAgents.size());
+    agent.setPartyId(partyId);
+    mAgents.push_back(agent);
+}
+
+const Agent& Simulation::getAgentFromCoalition(int coalitionId){
+    for(Agent& a: mAgents){
+        if(a.getCoalitionId()==coalitionId){
+            return a;
+        }
+    }
 }
