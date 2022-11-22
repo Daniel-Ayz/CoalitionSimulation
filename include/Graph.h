@@ -15,8 +15,9 @@ public:
     int getEdgeWeight(int v1, int v2) const;
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
-    std::vector<Party>& getPartyNeighbors(int partyId);
-    std::vector<int> getNeighborsWithoutOffer(int partyId);
+    Party &getParty(int partyId);
+    //std::vector<Party>& getPartyNeighbors(int partyId);
+    std::vector<int> getNeighborsWithoutOffer(int partyId,int coalitionId);
     std::vector<Party> &getAllParties();
     const std::vector<Party> &getAllParties() const;
 

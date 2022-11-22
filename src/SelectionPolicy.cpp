@@ -4,17 +4,17 @@
 
 MandatesSelectionPolicy::MandatesSelectionPolicy(){}
 
-Party& MandatesSelectionPolicy::select(const Graph& graph, std::vector<Party>& partiesToOffer, int partyId)
+int MandatesSelectionPolicy::select(const Graph& graph, std::vector<int> partiesToOffer, int partyId)
 {
-    int maxIndex = -1;
+    int maxPartyId = -1;
     int maxMandates = 0;
     for(unsigned int i=0;i<partiesToOffer.size();i++){
-        if(partiesToOffer[i].getMandates()>maxMandates){
-            maxIndex = i;
-            maxMandates = partiesToOffer[i].getMandates();
+        if(graph.getParty(partiesToOffer[i]).getMandates()>maxMandates){
+            maxPartyId = i;
+            maxMandates = graph.getParty(partiesToOffer[i]).getMandates();
         }
     }
-    return partiesToOffer[maxIndex];
+    return maxPartyId;
 }
 
 SelectionPolicy* MandatesSelectionPolicy::clone() const
@@ -24,17 +24,17 @@ SelectionPolicy* MandatesSelectionPolicy::clone() const
 
 EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy(){}
 
-Party& EdgeWeightSelectionPolicy::select(const Graph& graph, std::vector<Party>& partiesToOffer, int partyId)
+int EdgeWeightSelectionPolicy::select(const Graph& graph, std::vector<int> partiesToOffer, int partyId)
 {
-    int maxIndex = -1;
+    int maxPartyId = -1;
     int maxWeight = 0;
     for(unsigned int i=0;i<partiesToOffer.size();i++){
-        if(graph.getEdgeWeight(partiesToOffer[i].getId(),partyId)>maxWeight){
-            maxIndex = i;
-            maxWeight = graph.getEdgeWeight(partiesToOffer[i].getId(),partyId);
+        if(graph.getEdgeWeight(partiesToOffer[i],partyId)>maxWeight){
+            maxPartyId = i;
+            maxWeight = graph.getEdgeWeight(partiesToOffer[i],partyId);
         }
     }
-    return partiesToOffer[maxIndex];
+    return maxPartyId;
 }
 
 SelectionPolicy* EdgeWeightSelectionPolicy::clone() const

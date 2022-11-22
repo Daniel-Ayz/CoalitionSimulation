@@ -26,6 +26,11 @@ const Party &Graph::getParty(int partyId) const
     return mVertices[partyId];
 }
 
+Party &Graph::getParty(int partyId)
+{
+    return mVertices[partyId];
+}
+/*
 vector<Party> Graph::getPartyNeighbors(int partyId)
 {
     std::vector<Party> partiesToReturn;
@@ -35,8 +40,17 @@ vector<Party> Graph::getPartyNeighbors(int partyId)
         }
     }
     return partiesToReturn;
-}
+}*/
 
+vector<int> Graph::getNeighborsWithoutOffer(int partyId,int coalitionId){
+    vector<int> v;
+    for(Party& p:mVertices){
+        if(getEdgeWeight(p.getId(),partyId)!=0 && !p.hasOffer(coalitionId)){
+            v.push_back(p.getId());
+        }
+    }
+    return v;
+}
 vector<Party> &Graph::getAllParties(){
     return mVertices;
 }

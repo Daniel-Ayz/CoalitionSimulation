@@ -60,7 +60,10 @@ const Party &Simulation::getParty(int partyId) const
 {
     return mGraph.getParty(partyId);
 }
-
+Party &Simulation::getParty(int partyId)
+{
+    return mGraph.getParty(partyId);
+}
 /// This method returns a "coalition" std::vector, where each element is a std::vector of party IDs in the coalition.
 /// At the simulation initialization - the result will be [[agent0.partyId], [agent1.partyId], ...]
 const std::vector<vector<int>> Simulation::getPartiesByCoalitions() const
@@ -72,11 +75,11 @@ const std::vector<vector<int>> Simulation::getPartiesByCoalitions() const
     }
     return ans;
 }
-
+/*
 vector<Party> Simulation::getPartyNeighbors(int partyId)
 {
     return mGraph.getPartyNeighbors(partyId);
-}
+}*/
 
 void Simulation::addParty(int partyId, int coalitionId){
     Coalition c = getCoalition(coalitionId);
@@ -117,4 +120,8 @@ const Agent& Simulation::getAgentFromCoalition(int coalitionId){
         }
     }
     return agent;
+}
+
+std::vector<int> Simulation::getNeighborsWithoutOffer(int partyId,int coalitionId){
+    return mGraph.getNeighborsWithoutOffer(partyId,coalitionId);
 }

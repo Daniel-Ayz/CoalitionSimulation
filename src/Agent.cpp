@@ -2,7 +2,7 @@
 #include "SelectionPolicy.h"
 #include "Simulation.h"
 
-Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mCoalitionId(partyId), mSelectionPolicy(selectionPolicy)
+Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId),mCoalitionId(partyId), mSelectionPolicy(selectionPolicy)
 {
 }
 
@@ -18,16 +18,17 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    std::vector<Party> neighbors = sim.getPartyNeighbors(mPartyId);
-    std::vector<Party> noOfferNeighbors;
-    for (Party& p: neighbors){
+    /*vector<Party> neighbors = sim.getPartyNeighbors(mPartyId);
+    vector<Party> noOfferNeighbors;
+    for (Party p: neighbors){
         if(!(p.hasOffer(mCoalitionId))){
             noOfferNeighbors.push_back(p);
         }
-    }
-    if(noOfferNeighbors.size()>0){
-        Party p = mSelectionPolicy->select(sim.getGraph(), noOfferNeighbors, mPartyId);
-        p.addOffer(mCoalitionId);
+    }*/
+    vector<int> v = sim.getNeighborsWithoutOffer(mPartyId,mCoalitionId);
+    if(v.size()>0){
+        int pId = mSelectionPolicy->select(sim.getGraph(), v, mPartyId);
+        sim.getParty(pId).addOffer(mCoalitionId);
     }
 }
 
@@ -39,11 +40,11 @@ Agent::~Agent()
     }
 }
 
-Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mCoalitionId(other.mCoalitionId), mSelectionPolicy(other.mSelectionPolicy->clone())
+Agent::Agent(const Agent& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId),mCoalitionId(other.mCoalitionId),mSelectionPolicy(other.mSelectionPolicy->clone())
 {
 }
 
-Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId), mCoalitionId(other.mCoalitionId), mSelectionPolicy(other.mSelectionPolicy)
+Agent::Agent(Agent&& other) : mAgentId(other.mAgentId), mPartyId(other.mPartyId),mCoalitionId(other.mCoalitionId),mSelectionPolicy(other.mSelectionPolicy)
 {
     other.mSelectionPolicy = nullptr;
 }
